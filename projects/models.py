@@ -13,10 +13,11 @@ class Project(models.Model):
     def __str__(self):
         return self.project_name
 
+
 class ProjectMember(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    role = models.CharField(max_length=50)  # Optional: Additional roles in the project
+    member_role = models.CharField(max_length=50)  # Role in the project (e.g., Manager, Developer)
 
     class Meta:
         unique_together = ('user', 'project')
