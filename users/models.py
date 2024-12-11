@@ -12,7 +12,7 @@ class User(models.Model):
     user_role = models.CharField(max_length=50, choices=ROLES)
     name = models.CharField(max_length=200)
     bio = models.TextField(blank=True, null=True)
-    contact_info = models.TextField(blank=True, null=True)
+    contact_no = models.CharField(max_length=15, blank=True, null=True)
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
 
     def __str__(self):
