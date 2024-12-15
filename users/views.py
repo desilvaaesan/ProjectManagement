@@ -4,6 +4,7 @@ from .models import User
 from django.shortcuts import render, redirect
 import logging
 from .forms import SignupForm
+from django.contrib.auth import logout
 
 logger = logging.getLogger(__name__)
 
@@ -58,6 +59,7 @@ def register(request):
     
     return render(request, 'users/register.html', {'form': form})
 
-
-
+def logout_view(request):  # Rename the function
+    logout(request)  # Call the imported logout function
+    return redirect('login')  # Redirect to the login page
 
