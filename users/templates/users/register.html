@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,8 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <!-- Bootstrap CSS -->
+   
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <script>
         // JavaScript function to check if passwords match on form submission
         function checkPasswordsMatch(event) {
@@ -21,36 +25,106 @@
                 submitButton.disabled = false;  // Enable submit button if passwords match
             }
         }
+
+        
+        function togglePassword() {
+            const passwordField = document.getElementById("password");
+            const icon = document.getElementById("togglePassword");
+
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+
+            icon.classList.toggle('bi-eye');
+            icon.classList.toggle('bi-eye-slash');
+        }
+
+        function toggleConfirmPassword() {
+            const confirmPasswordField = document.getElementById("confirm_password");
+            const icon = document.getElementById("toggleConfirmPassword");
+
+            const type = confirmPasswordField.type === 'password' ? 'text' : 'password';
+            confirmPasswordField.type = type;
+
+            icon.classList.toggle('bi-eye');
+            icon.classList.toggle('bi-eye-slash');
+        }
     </script>
+    <style>
+        .h4 {
+            font-size: 2rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.1rem rgba(123, 117, 117, 0.25); 
+        }
+
+      
+        .position-relative {
+            position: relative;
+        }
+
+        .bi-eye, .bi-eye-slash {
+            position: absolute;
+            top: 75%;  /* Adjust the position */
+            right: 15px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1rem;  /* Smaller size */
+        }
+
+    
+      
+    </style>
 </head>
 
 <body class="bg-light d-flex justify-content-center align-items-center vh-100">
-    <div class="bg-white p-4 rounded shadow w-100" style="max-width: 400px;">
-        <h1 class="text-center h4 mb-4 text-dark fw-bold">Register</h1>
-        <form method="post" action="" onsubmit="checkPasswordsMatch(event)">
-            {% csrf_token %}
-            <div class="mb-3">
-                <label for="name" class="form-label">Name:</label>
-                <input type="text" id="name" name="name" required class="form-control">
+    <div class="container">
+        <div class="row justify-content-evenly align-items-center w-100">
+         
+            <div class="col-md-6 p-4" style="max-width: 400px;">
+                <h1 class="h4 mb-4 text-dark fw-bold">Project Management Web Application</h1>
+                <form method="post" action="" onsubmit="checkPasswordsMatch(event)">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name:</label>
+                        <input type="text" id="name" name="name" required class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" id="email" name="email" required class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username:</label>
+                        <input type="text" id="username" name="username" required class="form-control">
+                    </div>
+                    <div class="mb-3 position-relative">
+                        <label for="password" class="form-label">Password:</label>
+                        <input type="password" id="password" name="password" required class="form-control">
+                        <i id="togglePassword" class="bi bi-eye-slash position-absolute" onclick="togglePassword()"></i>
+                    </div>
+                    <div class="mb-3 position-relative">
+                        <label for="confirm_password" class="form-label">Confirm Password:</label>
+                        <input type="password" id="confirm_password" name="confirm_password" required class="form-control">
+                        <i id="toggleConfirmPassword" class="bi bi-eye-slash position-absolute" onclick="toggleConfirmPassword()"></i>
+                    </div>
+                    <button type="submit" id="submit_button" class="btn btn-primary w-100">Sign up</button>
+                </form>
+             
+                <p class="mt-4 text-center">
+                    Already a member?
+                    <a href="/users/login/" style="text-decoration: none; color: black; font-weight: bold;">
+                        <u>Login</u>
+                    </a>
+                </p>
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" id="email" name="email" required class="form-control">
+
+       
+            <div class="col-md-6 d-none d-md-block text-center">
+                <img src="{% static 'images/PatternDesign.png' %}" alt="Register Image" class="img-fluid rounded">
             </div>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username:</label>
-                <input type="text" id="username" name="username" required class="form-control">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" id="password" name="password" required class="form-control">
-            </div>
-            <div class="mb-3">
-                <label for="confirm_password" class="form-label">Confirm Password:</label>
-                <input type="password" id="confirm_password" name="confirm_password" required class="form-control">
-            </div>
-            <button type="submit" id="submit_button" class="btn btn-primary w-100">Register</button>
-        </form>
+        </div>
     </div>
 </body>
 
