@@ -22,8 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('manager-dashboard/', views.base_manager, name='manager-dashboard'),
     path('member-dashboard/', views.base_member, name='member-dashboard'),
-    path('users/', include('users.urls')),
+    path('users/', include('users.urls')),  # Include user app URLs
     path('projects/', admin.site.urls),
     path('notifications/', admin.site.urls),
     path('tasks/', admin.site.urls),
+    path('', include('users.urls')),  # Redirect the root URL to the login page
 ]
