@@ -1,0 +1,29 @@
+<!-- navbar.html -->
+<nav style="background-color: #f8f9fa; padding: 10px;">
+    <div>
+        <a href="{% if user.user_role == 'Manager' %}{% url 'manager-dashboard' %}{% else %}{% url 'member-dashboard' %}{% endif %}">Home</a>
+        <div style="float: right;">
+            {% if request.user.is_authenticated %}
+                <span>Welcome, {{ request.user.username }}!</span>
+                <!-- Dropdown Menu -->
+                <div style="display: inline-block; position: relative;">
+                    <button style="background: none; border: none; cursor: pointer;">Settings ▼</button>
+                    <div style="position: absolute; background: white; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); display: none;" id="dropdown-menu">
+                        <a href="{% url 'users:profile' %}" style="display: block; padding: 5px;">Profile</a>
+                        <a href="{% url 'users:profile_edit' %}" style="display: block; padding: 5px;">Edit Profile</a>  
+                        <a href="{% url 'users:logout' %}" style="display: block; padding: 5px; color: red;">Logout</a>                     
+                    </div>
+                </div>
+                <script>
+                    // Toggle Dropdown
+                    document.querySelector("button").addEventListener("click", function () {
+                        var dropdown = document.getElementById("dropdown-menu");
+                        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+                    });
+                </script>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+    </div>  
+</nav>
