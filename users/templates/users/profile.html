@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}  <!-- Add this line to load static files -->
+
+{% block content %}
+    <h2>{{ user.name }}'s Profile</h2>
+
+    {% if user.profile_image %}
+        <img src="{{ user.profile_image.url }}" alt="Profile Image" width="150" height="150">
+    {% else %}
+        <!-- Display a fallback image if profile image is not set -->
+        <img src="{% static 'images/PatternDesign.png' %}" alt="Default Profile Image" width="150" height="150">
+    {% endif %}
+
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Bio:</strong> {{ user.bio }}</p>
+    <p><strong>Contact:</strong> {{ user.contact_no }}</p>
+    <a href="{% url 'users:profile_edit' %}" class="btn btn-primary">Edit</a>
+{% endblock %}

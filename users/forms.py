@@ -19,3 +19,17 @@ class SignupForm(forms.ModelForm):
             raise ValidationError("Passwords do not match.")
 
         return cleaned_data
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.user_role = 'Manager'  # Set the default role to 'Manager'
+        user.set_password(user.password)  # Ensure password is hashed
+        if commit:
+            user.save()
+        return user
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['name', 'bio', 'contact_no', 'profile_image']

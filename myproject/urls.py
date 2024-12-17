@@ -17,14 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('manager-dashboard/', views.base_manager, name='manager-dashboard'),
     path('member-dashboard/', views.base_member, name='member-dashboard'),
-    path('users/', include('users.urls')),  # Include user app URLs
+    path('users/', include('users.urls')),  
     path('projects/', admin.site.urls),
     path('notifications/', admin.site.urls),
     path('tasks/', admin.site.urls),
-    path('', include('users.urls')),  # Redirect the root URL to the login page
+    path('', include('users.urls')), 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
